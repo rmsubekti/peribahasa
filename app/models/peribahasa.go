@@ -9,10 +9,10 @@ type Peribahasa struct {
 	ID       uint
 	TeksAsli string `json:"asli"`
 	Arti     string `json:"arti"`
-	JenisID  uint
-	Jenis    Jenis `gorm:"association_autoupdate:false"`
-	AsalID   uint
-	Asal     Asal `gorm:"association_autoupdate:false"`
+	JenisID  uint   `json:"-"`
+	Jenis    Jenis  `gorm:"association_autoupdate:false"`
+	AsalID   uint   `json:"-"`
+	Asal     Asal   `gorm:"association_autoupdate:false"`
 }
 
 // ListPeribahasa list

@@ -13,7 +13,7 @@ var Xclaim = &models.Token{}
 // JwtAuthentication middleware
 var JwtAuthentication = func(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		noAuth := []string{"/v1/user/new", "/v1/user/login", "/v1/product/all"}
+		noAuth := []string{"/api/register", "/api/login", "/"}
 		requestPath := r.URL.Path
 
 		//skip authentication for request path that in whitelist
@@ -26,20 +26,22 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 
 		bearerToken := r.Header.Get("Authorization")
 		claim := &models.Token{}
-		claim.Parse(bearerToken)
-		//all passed
-		//ctx := context.WithValue(r.Context(),"claim",claim)
-		//r.WithContext(ctx)
+		if err := claim.Parse(bearerToken); err != nil && requestPath == "/api" {
+			next.ServeHTTP(w, r)
+			return
+		}
+
 		context.Set(r, Xclaim, claim)
 		next.ServeHTTP(w, r)
 	})
 }
 
 // AllowAccess verification
-func AllowAccess(r *http.Request, AllowedRoles []models.RoleType) error {
+func AllowAccess(r *http.Request, AllowedRoles models.RoleTypes) error {
 	claim := context.Get(r, Xclaim).(*models.Token)
-	roles := claim.Roles
+	var roles models.Roles = claim.Roles
 	if err := roles.IsAllowed(AllowedRoles); err != nil {
 		return err
 	}
+	return nil
 }

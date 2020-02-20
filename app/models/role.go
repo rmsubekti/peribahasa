@@ -27,7 +27,7 @@ type Role struct {
 type Roles []Role
 
 // IsAllowed : Check if user has access to the resource
-func (r Roles]) IsAllowed(allowedRoles RoleTypes) error {
+func (r Roles) IsAllowed(allowedRoles RoleTypes) error {
 	if len(r) == 0 {
 		return errors.New("There is no role to check")
 	}

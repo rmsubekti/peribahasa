@@ -88,7 +88,7 @@ func (u *User) Create() error {
 }
 
 // Login account
-func (u *User) Login(userNameOrEmail, password string) error {
+func (u *User) Login(userNameOrEmail string, password string) error {
 	err := GetDB().Where("email = ?", userNameOrEmail).Or("user_name = ?", userNameOrEmail).Preload("Roles").Find(&u).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
