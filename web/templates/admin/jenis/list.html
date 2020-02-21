@@ -1,0 +1,21 @@
+{{ define "content" }}
+    {{ if .status }}
+    <h1>Data Created</h1>
+    {{ else }}
+
+    <ul class="item-list">
+        {{range .data}}
+        <li class="item">
+        <span>{{.ID}}</span><span class="name">{{.Nama}}</span>
+        </li>
+        {{end}}
+
+    </ul>
+    <h1>Add New</h1>
+    <form method="POST">
+        <label>Name:</label><br />
+        <input type="text" name="nama"><br />
+        <button type="submit">Add</button>
+    </form>
+    {{ end }}
+{{ end }}

@@ -6,13 +6,13 @@ import (
 
 // Peribahasa table belong to single Peribahasa and Category
 type Peribahasa struct {
-	ID       uint
+	ID       uint   `json:"id"`
 	TeksAsli string `json:"asli"`
 	Arti     string `json:"arti"`
-	JenisID  uint   `json:"-"`
-	Jenis    Jenis  `gorm:"association_autoupdate:false"`
-	AsalID   uint   `json:"-"`
-	Asal     Asal   `gorm:"association_autoupdate:false"`
+	Jenis    Jenis  `gorm:"association_foreignkey:IDJenis"`
+	IDJenis  uint   `json:"id_jenis"`
+	Asal     Asal   `gorm:"association_foreignkey:IDAsal"`
+	IDAsal   uint   `json:"id_asal"`
 }
 
 // ListPeribahasa list

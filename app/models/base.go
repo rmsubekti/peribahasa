@@ -42,12 +42,12 @@ func init() {
 		fmt.Println(err)
 	}
 
-	//db.AutoMigrate(&Account{}, &Role{}, &Product{})
+	db.AutoMigrate(&Role{}, &User{}, &Asal{}, &Jenis{}, &Peribahasa{})
 
 	//initial role rows
-	//db.FirstOrCreate(&Role{}, Role{RoleName: RoleUser})
-	// db.FirstOrCreate(&Role{}, Role{RoleName: RoleAdmin})
-	// db.FirstOrCreate(&Role{}, Role{RoleName: RolePM})
+	db.FirstOrCreate(&Role{}, Role{RoleName: RoleUser})
+	db.FirstOrCreate(&Role{}, Role{RoleName: RoleAdmin})
+	db.FirstOrCreate(&Role{}, Role{RoleName: RoleEditor})
 }
 
 // GetDB export

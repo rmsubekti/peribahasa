@@ -6,9 +6,8 @@ import (
 
 // Jenis has many quotes
 type Jenis struct {
-	ID         uint
-	Nama       string       `json:"type"`
-	Peribahasa []Peribahasa `gorm:"foreignkey:JenisID"`
+	ID   uint   `json:"id"`
+	Nama string `json:"nama"`
 }
 
 // TableName Jenis should not pruralized
@@ -72,7 +71,7 @@ func (j *Jenis) Delete(id int) error {
 }
 
 // List Jenis Peribahasa
-func (j *ListJenis) List(start int, max int) error {
+func (j *ListJenis) List() error {
 	err := GetDB().Find(&j).Error
 	if err != nil {
 		return err

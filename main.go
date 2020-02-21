@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"peribahasa/app/controllers"
+	"peribahasa/web/handlers"
 
 	"github.com/gorilla/mux"
 )
@@ -36,6 +37,9 @@ func main() {
 	staticFileDirectory := http.Dir("./web/assets/")
 	staticFileHandler := http.StripPrefix("/assets/", http.FileServer(staticFileDirectory))
 	web.PathPrefix("/assets/").Handler(staticFileHandler).Methods("GET")
+
+	webadmin := router.PathPrefix("/admin").Subrouter()
+	webadmin.HandleFunc("/jenis", handlers.JenisListPage).Methods("GET", "POST")
 
 	port := os.Getenv("PORT")
 	if port == "" {
