@@ -1,0 +1,9 @@
+{{ define "content" }}
+    <ul class="item-list">
+        {{range .data}}
+        <li class="item">
+        <span>{{.ID}}</span><span class="name">{{.Bahasa}}</span>
+        </li>
+        {{end}}
+    </ul>
+{{ end }}

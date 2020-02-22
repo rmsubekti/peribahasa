@@ -1,0 +1,8 @@
+{{ define "content" }}
+<p>Anda Akan Menghapus Data Jenis Dengan Nama "{{ .data.Nama }}".</p>
+<p>Ketik <em>Ya</em> untuk melanjutkan.</p>
+<form method="POST">
+    <input type="text" name="confirm" placeholder="ketik ya/tidak">
+    <button type="submit">Konfirmasi</button>
+</form>
+{{ end }}

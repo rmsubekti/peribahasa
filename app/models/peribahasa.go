@@ -10,9 +10,9 @@ type Peribahasa struct {
 	TeksAsli string `json:"asli"`
 	Arti     string `json:"arti"`
 	Jenis    Jenis  `gorm:"association_foreignkey:IDJenis"`
-	IDJenis  uint   `json:"id_jenis"`
+	IDJenis  uint   `json:"-"`
 	Asal     Asal   `gorm:"association_foreignkey:IDAsal"`
-	IDAsal   uint   `json:"id_asal"`
+	IDAsal   uint   `json:"-"`
 }
 
 // ListPeribahasa list
@@ -55,7 +55,7 @@ func (p *Peribahasa) Get(id int) error {
 		return nil
 	}
 
-	err := GetDB().Table("quotes").Where("id=?", id).Preload("jenis").Preload("asal").First(&p).Error
+	err := GetDB().Table("peribahasa").Where("id=?", id).Preload("jenis").Preload("asal").First(&p).Error
 	if err != nil {
 		return err
 	}

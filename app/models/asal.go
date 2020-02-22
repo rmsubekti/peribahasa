@@ -71,14 +71,7 @@ func (a *Asal) Delete(id int) error {
 }
 
 // List asal
-func (a *ListAsal) List(start int, max int) error {
-	if start > 0 || max > 0 {
-		err := GetDB().Offset(start).Limit(max).Find(&a).Error
-		if err != nil {
-			return err
-		}
-		return nil
-	}
+func (a *ListAsal) List() error {
 	err := GetDB().Find(&a).Error
 	if err != nil {
 		return err

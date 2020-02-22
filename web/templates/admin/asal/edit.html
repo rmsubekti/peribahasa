@@ -1,0 +1,8 @@
+{{ define "content" }}
+    <h1>Edit</h1>
+    <form method="POST">
+        <label>Name:</label><br />
+        <input type="text" name="bahasa" value="{{ .data.Bahasa }}"><br />
+        <button type="submit">Simpan</button>
+    </form>
+{{ end }}

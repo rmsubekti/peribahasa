@@ -1,0 +1,22 @@
+{{ define "content" }}
+    <h1>Edit</h1>
+    <form method="POST">
+        <label for="teks">Peribahasa :</label>
+        <input type="text" name="asli" id="teks">
+        <label for="arti">Arti :</label>
+        <input type="text" name="arti" id="arti">
+        <label for="asalBahasa">Asal Bahasa :</label>
+        <select name="asal" id="asalBahasa">
+         {{range .asal}}
+          <option value="{{.ID}}">{{ .Bahasa }}</option>
+          {{ end }}
+        </select> 
+        <label for="jenis">Asal Bahasa :</label>
+        <select name="jenis" id="jenis">
+         {{range .jenis}}
+          <option value="{{.ID}}">{{ .Nama }}</option>
+          {{ end }}
+        </select> 
+        <button type="submit">Simpan</button>
+    </form>
+{{ end }}
