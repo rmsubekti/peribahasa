@@ -6,8 +6,9 @@ import (
 
 // Asal has many quotes
 type Asal struct {
-	ID     uint   `json:"id"`
+	ID     uint   `gorm:"primary_key" json:"id"`
 	Bahasa string `json:"bahasa"`
+	// Peribahasa []Peribahasa `gorm:"ForeignKey:IDAsal"`
 }
 
 //ListAsal type

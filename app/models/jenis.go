@@ -6,8 +6,9 @@ import (
 
 // Jenis has many quotes
 type Jenis struct {
-	ID   uint   `json:"id"`
+	ID   uint   `gorm:"primary_key" json:"id"`
 	Nama string `json:"nama"`
+	// Peribahasa []Peribahasa `gorm:"ForeignKey:IDJenis"`
 }
 
 // TableName Jenis should not pruralized

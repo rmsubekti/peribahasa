@@ -19,8 +19,9 @@ type RoleTypes []RoleType
 
 // Role Account
 type Role struct {
-	ID       uint
+	RoleID   uint `gorm:"primary_key" json:"id"`
 	RoleName RoleType
+	// Users []User `gorm:"many2many:user_roles"`
 }
 
 // Roles list

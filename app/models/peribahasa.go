@@ -6,13 +6,13 @@ import (
 
 // Peribahasa table belong to single Peribahasa and Category
 type Peribahasa struct {
-	ID       uint   `json:"id"`
-	TeksAsli string `json:"asli"`
+	ID       uint   `gorm:"primary_key"  json:"id"`
+	TeksAsli string `gorm:"not null;unique" json:"asli"`
 	Arti     string `json:"arti"`
-	Jenis    Jenis  `gorm:"association_foreignkey:IDJenis"`
-	IDJenis  uint   `json:"-"`
-	Asal     Asal   `gorm:"association_foreignkey:IDAsal"`
-	IDAsal   uint   `json:"-"`
+	IDAsal   uint   `sql:"type:int REFERENCES asal(id)" json:"-"`
+	Asal     Asal   `gorm:"auto_preload;association_foreignkey:IDAsal"`
+	IDJenis  uint   `sql:"type:int REFERENCES jenis(id)" json:"-"`
+	Jenis    Jenis  `gorm:"auto_preload;association_foreignkey:IDJenis"`
 }
 
 // ListPeribahasa list
@@ -48,14 +48,14 @@ func (p *Peribahasa) Create() error {
 //Get p Peribahasa
 func (p *Peribahasa) Get(id int) error {
 	if id <= 0 {
-		err := GetDB().Preload("jenis").Preload("asal").Order("random()").First(&p).Error
+		err := GetDB().Order("random()").First(&p).Error
 		if err != nil {
 			return err
 		}
 		return nil
 	}
 
-	err := GetDB().Table("peribahasa").Where("id=?", id).Preload("jenis").Preload("asal").First(&p).Error
+	err := GetDB().Table("peribahasa").Where("id=?", id).First(&p).Error
 	if err != nil {
 		return err
 	}

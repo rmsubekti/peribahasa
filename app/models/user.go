@@ -11,10 +11,10 @@ import (
 // User struct
 type User struct {
 	gorm.Model
-	UserName string `json:"username"`
-	Email    string `json:"email"`
+	UserName string `gorm:"not null;unique" json:"username"`
+	Email    string `gorm:"not null;unique" json:"email"`
 	Password string `json:"-"`
-	Roles    []Role `gorm:"many2many:user_roles;"`
+	Roles    []Role `gorm:"many2many:user_roles;foreignkey:ID;association_foreignkey:RoleID;association_jointable_foreignkey:role_id;jointable_foreignkey:user_id;"`
 	Token    string `json:"-"`
 }
 
