@@ -10,11 +10,11 @@ import (
 
 // User struct
 type User struct {
-	gorm.Model
+	ID       uint   `gorm:"primary_key:true" json:"id"`
 	UserName string `gorm:"not null;unique" json:"username"`
 	Email    string `gorm:"not null;unique" json:"email"`
 	Password string `json:"-"`
-	Roles    []Role `gorm:"many2many:user_roles;foreignkey:ID;association_foreignkey:RoleID;association_jointable_foreignkey:role_id;jointable_foreignkey:user_id;"`
+	Roles    []Role `gorm:"many2many:user_roles;FOREIGNKEY:id;ASSOCIATION_FOREIGNKEY:id;ASSOCIATION_JOINTABLE_FOREIGNKEY:role_id;JOINTABLE_FOREIGNKEY:user_id;"`
 	Token    string `json:"-"`
 }
 
@@ -33,9 +33,7 @@ func (u *User) Validate() error {
 	if len(u.Password) < 6 {
 		return errors.New("Password should be 6 or more character")
 	}
-
 	return nil
-
 }
 
 // Create new User

@@ -43,7 +43,8 @@ func init() {
 	}
 
 	db.AutoMigrate(&Role{}, &User{}, &Asal{}, &Jenis{}, &Peribahasa{})
-
+	db.Model(&UserRoles{}).AddForeignKey("user_id", "users(id)", "CASCADE", "RESTRICT")
+	db.Model(&UserRoles{}).AddForeignKey("role_id", "roles(id)", "CASCADE", "RESTRICT")
 	//initial role rows
 	db.FirstOrCreate(&Role{}, Role{RoleName: RoleUser})
 	db.FirstOrCreate(&Role{}, Role{RoleName: RoleAdmin})
